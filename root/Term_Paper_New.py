@@ -4,7 +4,6 @@ import scipy.optimize
 import time
 
 
-
 def custom_func(func_str):
     def result_func(x):
         nonlocal func_str
