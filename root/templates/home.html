@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Дикий в плані дизайну сайт</title>
+    <style>
+      #Picard {
+      	font-size: 86px;
+      	color: #0000A4;
+      }
+      #image {
+      	width:50px;
+      	height:60px;
+      }
+      h1 {
+      	text-align: center; 
+      	font-size: 86px; 
+      	margin-top: 80px
+      }
+      #main_text {
+      	outline-width: 0;
+        padding: 5px;
+        margin: 5px 0;
+        border-style: solid;
+        border-width: 3.5px;
+        border-radius: 7px;
+        width: 560px;
+      }
+      #main_div {
+		  text-align: center;
+      }
+      #main_text:focus,
+      #main_text:active,
+      #main_text:hover {
+      	outline-width: 0;
+        border-color: #0000A4;
+      }
+      #button_go {
+      	background-color: #0000A4;
+      	color: #c2c2c2;
+      	border: 2px;
+      	border-radius: 5px;
+      	width: 25px;
+      	font-size: 16px;
+      	text-align: center;
+      }
+
+      
+      #info_box{
+		  border: 2px solid;
+		  padding: 10px;
+		  box-shadow: 0px 3px 3px #888888;
+		  background-color: #d9d9d9;
+		  margin-top: 20px;
+		  margin-right: 27%;
+		  margin-left: 27%;
+		  padding-top: 5px;
+      }
+      
+      #info_box:hover{
+		  border-color: #0000A4;
+		  padding-top: 5px;
+      }
+      #graph{
+      	  margin-left: auto;
+  		  margin-right: auto;
+  		  width: 600px; 
+  		  height: 500px;
+  		  display: block;
+  		  border: 3px solid black;
+      }
+      #image{
+      	border: 2px solid;
+      }
+      #image: hover{
+      	border-color: #0000A4;
+      }
+      a {
+        text-decoration: none;
+        color: black;
+	    } 
+
+
+    </style>
+</head>
+<body style="background-color:#c2c2c2;">
+
+<a href="/">
+<h1 style=""><img id = "image" src="{{ url_for('static', filename = 'Picard.jpg') }}" alt="Еміль Пікар"> <span id = 'Picard'> Picard</span>Solver</h1>
+</a>
+
+<div id = 'main_div'>
+	<form action="/solve", method = 'POST'>
+		<span>
+		<input id = 'main_text' name="query" type="text" placeholder="Введіть свій запит, наприклад: y' = x^2 * y^2">
+		<input id = 'button_go' type="submit" value="=">
+		</span>
+	</form>
+</div>
+
+<br>
+{% if message != None%}
+	{% for msg in message%}
+		{%if msg != None%}
+			<div id = 'info_box'>	
+				<p>{{msg | safe}}</p>
+				<hr>
+			</div>
+		{%endif%}
+	{%endfor%}
+{%endif%}
+
+{%if data != None%}
+	{% for graph in data%}
+		{%if graph != None%}
+			<div id = 'info_box'>
+				<img src="{{graph}}" alt="" id = 'graph'>
+			</div>
+		{%endif%}
+	{%endfor%}
+{%endif%}
+
+{%if data == None%}
+<div id = 'info_box'>
+	<p><i>Як вводити команди?</i></p>
+	<hr>
+	<p><b>Диференціальні рівняння</b></p>
+	<p>Вкажіть Ваше диференціальне рівняння, починаючи з <b>"y' ="</b></p>
+	<p>Ви можете одразу визначити метод, ввівши команду <b>"Метод Пікара"</b> або <b>"Рунге-Кутта"</b>, можна використати обидва методи, командою <b>"та"</b></p>
+	<p>Щоб ввести степінь, використовуйте знак <b>"^"</b> або <b>"**"</b></p>
+	<p>Не забувайте про знак множення: <b>"*"</b> між коефіцієнтом та змінною</p>
+	<p>Щоб вказати інтервал інтегрування використовуйте команду <b>"від - до -"</b></p>
+	<p>Вказати початкову умову можна у вигляді: <b>x0 = -, y0 = -</b>; За замовчуванням, початкова умова - це <i>y(0) = 1</i></p>
+	<p>Наприклад, ось так: <i>Метод Пікара y' = x^3 + y + 1/2 від 0 до 1, x0 = 0, y0 = 1</i></p>
+	<hr>
+	<p><b>Похідні</b></p>
+	<p>Для знаходження похідної вкажіть у запиті ключове слово <b>"Похідна"</b> </p>
+	<p>Запишіть функцію після ключогового слова <b>"f="</b> </p>
+	<p>Ви можете зазначити змінну по якій потрібно продиференціювати функцію, використовуючи кооманди <b>"по x" та "по y"</b></p>
+	<p>Щоб знайти значення похідної в певній точці, вкажіть ключове слово <b>"в точці"</b> після чого запишіть точку в дужках</p>
+	<p>Наприклад, ось так: <i>Похідна по x f = x^3*y + 10*y^5*sin(x^3*y) в точці (10, 1)</i></p>
+</div>
+{%endif%}
+
+</body>
+</html>
