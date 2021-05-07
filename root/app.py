@@ -8,7 +8,7 @@ from math import sin, cos, e, pi
 from Term_Paper_New import custom_func, plot_piecewise, fuehrung, find_d_and_alpha, plot_list, picard_poly, picard,\
     add_superscript, RK4
 
-app = Flask(__name__)
+app1 = Flask(__name__)
 
 def nonlinear_case_helper(dxdy, x0, y0, _a, _b, alpha, convergence):
     try:
@@ -184,4 +184,4 @@ def solver():
 
 
 if __name__ == '__main__':
-   app.run()
+   app1.run()
